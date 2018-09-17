@@ -1,0 +1,7 @@
+dist
+dist-newstyle
+cabal.sandbox.config
+cabal.project.local
+.ghc.environment.x86_64-freebsd-8.4.3
+2018-08-27-cabalnix.html
+2018-08-27-junk.html

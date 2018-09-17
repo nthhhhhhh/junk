@@ -1,0 +1,13 @@
+junk
+=====
+
+A static site generator written in Haskell.
+
+While it is a personal generator, it can be used by cloning
+this repo.
+
+After cloning, head to the src directory, each directory has
+a template (except util). Take note of the id tags prefixed 
+with junk. The templates will be copied there. After the 
+templates are modified, change to the root of the repo and cabal run.
+
