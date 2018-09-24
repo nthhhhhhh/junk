@@ -14,7 +14,8 @@ Portability :  POSIX
 module HtmlUtility (htmlOnly, htmlOnly', parseTags') where
 
 import Data.Text (Text)
-import Text.HTML.TagSoup (Tag, parseTags)
+import Text.HTML.TagSoup (Tag)
+import qualified Text.HTML.TagSoup as TS (parseTags)
 import qualified Data.List as L (filter)
 import qualified Data.Text as T
 
@@ -41,5 +42,5 @@ htmlOnly' =
 -- | Transform Seq of raw html to Seq of Tagsoup Tags.
 parseTags' :: Seq Text -> Seq (Seq (Tag Text))
 parseTags' =
-  fmap (fromList . parseTags)
+  fmap (fromList . TS.parseTags)
 
