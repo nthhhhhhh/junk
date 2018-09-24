@@ -17,11 +17,12 @@ import Notlude
 
 import Control.Monad (when)
 import Data.Text (Text)
-import Text.HTML.TagSoup (Tag(..), parseTags)
+import Text.HTML.TagSoup (Tag(..))
 import System.Directory (getDirectoryContents)
 import System.Exit (die)
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO (readFile)
+import qualified Text.HTML.TagSoup as TS (parseTags)
 
 import Entries (Entries)
 import qualified Entries (metadata, filenames)
@@ -69,8 +70,7 @@ prvwhtmlpath =
   getDirectoryContents (T.unpack basepath)
   <&> passvalid
   <&> fmap (`index` 0)
-  <&> fmap (T.append basepath)
-   &  join
+  >>= fmap (T.append basepath)
 
 
 
@@ -79,8 +79,7 @@ templatetags :: IO (Seq (Tag Text))
 templatetags =
   prvwhtmlpath
   <&> TIO.readFile . T.unpack 
-  <&> fmap (fromList . parseTags)
-   &  join
+  >>= fmap (fromList . TS.parseTags)
 
 
 
@@ -101,9 +100,8 @@ previewtags :: IO (Entries (Maybe (Seq (Tag Text))))
 previewtags =
   Entries.metadata
   <&> fmap (liftA2 TSUtil.combine templatetags . pure)
-  <&> sequence
-   &  join
- 
+  >>= sequence
+
 
 
 -- Display a warning when ids in template do not match one
@@ -114,8 +112,7 @@ warning =
   <&> fmap isNothing 
   <&> toList 
   <&> or
-  <&> flip when (print warningtxt)
-   &  join
+  >>= flip when (print warningtxt)
 
 
 
