@@ -51,7 +51,8 @@ previews =
 -- index tags displayed on homepage
 tags :: IO (Maybe (Seq (Tag Text)))
 tags =
-  previews
-  <&> liftA3 TSUtil.inset (pure ("id", "junkp")) templatetags . pure
-   &  join
+  TSUtil.inset
+  <$> pure ("id", "junkp")
+  <*> templatetags
+  <*> previews
 
