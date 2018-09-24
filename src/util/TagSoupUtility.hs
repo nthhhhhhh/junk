@@ -36,7 +36,7 @@ import Entries (Meta) -- type Meta = (Text, Text)
 --    sometagopen ~ TagOpen "a" [("id", "ha"), ("id", "title")]
 --  will result to 
 --    Just True
-attrsfromtag :: StringLike str => Tag str -> Maybe [Attribute str]
+attrsfromtag :: Tag str -> Maybe [Attribute str]
 attrsfromtag (TagOpen _ attrs) = Just attrs
 attrsfromtag _ = Nothing
 
