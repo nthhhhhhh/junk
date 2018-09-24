@@ -145,8 +145,7 @@ uglyhtml =
   getDirectoryContents (T.unpack basepath)
   <&> tofullpath
   <&> fmap (TIO.readFile . T.unpack)
-  <&> sequenceA
-   &  join
+  >>= sequence
 
 
 
