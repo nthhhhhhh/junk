@@ -39,8 +39,7 @@ tags :: IO (Seq (Seq (Tag Text)))
 tags =
   Entries.metadata
   <&> fmap (liftA2 TSUtil.combine templatetags . pure)
-  <&> sequence
-   &  join
+  >>= sequence
   <&> filter isJust
   <&> fmap fromJust
    &  liftA2 mapWithIndex (fmap (TSUtil.transHref "./") Entries.filenames)
