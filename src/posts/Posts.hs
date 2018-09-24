@@ -44,8 +44,7 @@ templatetagsoup :: IO (Seq (Seq (Tag Text)))
 templatetagsoup =
   Entries.metadata
   <&> fmap (liftA2 TSUtil.combine templatetags . pure)
-  <&> sequence
-   &  join
+  >>= sequence
   <&> fmap fromJust
 
 
@@ -53,7 +52,9 @@ templatetagsoup =
 -- Each blog entry applied to respective id "junkp" in each templatetagsoup
 tags' :: IO (Seq (Maybe (Seq (Tag Text))))
 tags' =
-  liftA2 (zipWith (TSUtil.inset ("id", "junkp"))) templatetagsoup Entries.tags
+  zipWith (TSUtil.inset ("id", "junkp"))
+  <$> templatetagsoup
+  <*> Entries.tags
 
 
 
@@ -77,8 +78,7 @@ warning =
   <&> fmap isNothing 
   <&> toList 
   <&> or
-  <&> flip when (print warningtxt)
-   &  join
+  >>= flip when (print warningtxt)
 
 
 
