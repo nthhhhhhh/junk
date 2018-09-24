@@ -34,10 +34,11 @@ templatetags =
   <&> fromList
 
 
+
 tags :: IO (Maybe (Seq (Tag Text)))
 tags =
-  AE.tags
-  <&> join
-  <&> liftA3 TSUtil.inset (pure ("id", "junka")) templatetags . pure
-   &  join
+  TSUtil.inset
+  <$> pure ("id", "junka")
+  <*> templatetags
+  <*> fmap join AE.tags
 
