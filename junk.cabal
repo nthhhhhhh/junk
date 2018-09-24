@@ -4,7 +4,7 @@
 name:                junk
 version:             0.1.0.0
 synopsis:            Personal Static Site Generator
--- description:
+description:         A no markup and html only static site generator.
 homepage:            git.dialed.rip
 license:             BSD3
 license-file:        LICENSE
@@ -18,6 +18,10 @@ cabal-version:       >=1.10
 
 executable junk
   ghc-options:         -Wall
+                       -Wcompat
+                       -Wincomplete-record-updates
+                       -Wincomplete-uni-patterns
+                       -Wredundant-constraints
   main-is:             Main.hs
   other-modules:       
                          Archive
