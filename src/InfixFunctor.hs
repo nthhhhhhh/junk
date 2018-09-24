@@ -14,6 +14,15 @@ module InfixFunctor where
 
 import Notlude
 
+
+infixl 4 <$$>
+(<$$>) :: (Functor f1, Functor f2)
+       => (a -> b) -> f1 (f2 a) -> f1 (f2 b)
+(<$$>) f x =
+  fmap (fmap f) x
+
+
+
 infixl 1 <&&>
 (<&&>) :: (Functor f1, Functor f2) 
        => f1 (f2 a) -> (a -> b) -> f1 (f2 b)
